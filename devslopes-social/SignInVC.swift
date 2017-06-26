@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
+import Firebase
 
 class SignInVC: UIViewController {
 
@@ -19,7 +22,41 @@ class SignInVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    @IBAction func facebookBtnTapped(_ sender: Any) {
+    
+        let facebookLogin = FBSDKLoginManager()
+        
+        facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+            if error != nil {
+                
+                //Berakom a BALINT-ot mert igy az output-ok között tudok filterezni és megtalálom mi vonatkozik rám
+                print("BALINT: Unable to authenticate with Facebook")
+            } else if result?.isCancelled == true {
+               
+                print("BALINT: User cancelled Facebook authentication")
+            } else {
+                
+                print("BALINT: Succesfully authenticated with Facebook")
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                self.firebaseAuth(credential)
+            }
+        }
+    }
+    
+    //Hiányzott a LSApplicationQueriesSchemes az info.plist-ből. Kiirta a hibaüzenetet mikor nem történt meg a kivétel elkapása...
+    
+    func firebaseAuth(_ credential: FIRAuthCredential) {
+        
+        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+            if error != nil {
+                
+                print("BALINT: Unable to authenticate with Firebase")
+            } else {
+                
+                print("BALINT: Succesfully authenticated with Firebase")
+            }
+        })
+    }
 
 }
 

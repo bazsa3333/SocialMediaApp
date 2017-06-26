@@ -23,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		075763D2AEC70780AB59A13F /* Pods_devslopes_social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devslopes_social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1160322A1F01828400EE3373 /* devslopes-social.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "devslopes-social.entitlements"; sourceTree = "<group>"; };
 		11CB56741E89878900D80450 /* devslopes-social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "devslopes-social.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CB56771E89878900D80450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11CB56791E89878900D80450 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		11CB56761E89878900D80450 /* devslopes-social */ = {
 			isa = PBXGroup;
 			children = (
+				1160322A1F01828400EE3373 /* devslopes-social.entitlements */,
 				11F5C46A1F01647200EF17B7 /* Util */,
 				11CB568B1E898AE000D80450 /* Model */,
 				11CB568D1E898AEB00D80450 /* Controller */,
@@ -175,6 +177,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = AF8XNTNU2S;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

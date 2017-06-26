@@ -22,6 +22,7 @@ class FancyField: UITextField {
         return bounds.insetBy(dx: 10, dy: 5)
     }
     
+    //szerkesztés közben
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 10, dy: 5)
     }

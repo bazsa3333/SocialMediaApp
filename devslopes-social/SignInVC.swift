@@ -10,6 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
+import SwiftKeychainWrapper
 
 class SignInVC: UIViewController {
 
@@ -58,6 +59,12 @@ class SignInVC: UIViewController {
             } else {
                 
                 print("BALINT: Succesfully authenticated with Firebase")
+                
+                if let user = user {
+                    
+                    self.completeSignIn(id: user.uid)
+                }
+            
             }
         })
     }
@@ -69,17 +76,33 @@ class SignInVC: UIViewController {
             FIRAuth.auth()?.signIn(withEmail: email, password: psw, completion: { (user, error) in
                 if error == nil {
                     print("BALINT: Email user authenticated with Firebase")
+                    
+                    if let user = user {
+                     
+                        self.completeSignIn(id: user.uid)
+                    }
                 } else {
                     FIRAuth.auth()?.createUser(withEmail: email, password: psw, completion: { (user, error) in
                         if error != nil {
                             print("BALINT: Unable to authenticate with Firebase using email")
                         } else {
                             print("BALINT: Succesfully authenticated with Firebase using email")
+                            
+                            if let user = user {
+                                
+                             self.completeSignIn(id: user.uid)
+                            }
                         }
                     })
                 }
             })
         }
+    }
+    
+    func completeSignIn(id: String) {
+        
+        let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        print("BALINT: Data saved to keychainresult: \(keychainResult)")
     }
 }
 

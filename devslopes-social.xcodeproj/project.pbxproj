@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		072B7F6D5A9108AD23708B1C /* Pods_devslopes_social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075763D2AEC70780AB59A13F /* Pods_devslopes_social.framework */; };
+		112699501F048E7000FBA094 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126994F1F048E7000FBA094 /* FeedVC.swift */; };
 		11CB56781E89878900D80450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CB56771E89878900D80450 /* AppDelegate.swift */; };
 		11CB567A1E89878900D80450 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CB56791E89878900D80450 /* SignInVC.swift */; };
 		11CB567D1E89878900D80450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11CB567B1E89878900D80450 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		075763D2AEC70780AB59A13F /* Pods_devslopes_social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devslopes_social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1126994F1F048E7000FBA094 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		1160322A1F01828400EE3373 /* devslopes-social.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "devslopes-social.entitlements"; sourceTree = "<group>"; };
 		11CB56741E89878900D80450 /* devslopes-social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "devslopes-social.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CB56771E89878900D80450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				11CB56791E89878900D80450 /* SignInVC.swift */,
+				1126994F1F048E7000FBA094 /* FeedVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				11CB567A1E89878900D80450 /* SignInVC.swift in Sources */,
 				11F5C46E1F0166B300EF17B7 /* RoundBtn.swift in Sources */,
 				11CB56781E89878900D80450 /* AppDelegate.swift in Sources */,
+				112699501F048E7000FBA094 /* FeedVC.swift in Sources */,
 				11F5C4691F0163F400EF17B7 /* FancyView.swift in Sources */,
 				11F5C46C1F01648200EF17B7 /* Constants.swift in Sources */,
 				11F5C4721F016A7000EF17B7 /* FancyBtn.swift in Sources */,

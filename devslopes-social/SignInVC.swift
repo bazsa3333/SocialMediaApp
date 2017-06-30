@@ -17,16 +17,21 @@ class SignInVC: UIViewController {
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var passwordField: FancyField!
     
+    //Segues need to be performed in viewDidAppear!!!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if let _ = KeychainWrapper.standard.string(forKey: KEY_UID){
+            print("BALINT: ID found in keychain")
+            performSegue(withIdentifier: "goToFeed", sender: nil)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     @IBAction func facebookBtnTapped(_ sender: Any) {
     
         let facebookLogin = FBSDKLoginManager()
@@ -102,7 +107,10 @@ class SignInVC: UIViewController {
     func completeSignIn(id: String) {
         
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        
         print("BALINT: Data saved to keychainresult: \(keychainResult)")
+        
+        performSegue(withIdentifier: "goToFeed", sender: nil)
     }
 }
 

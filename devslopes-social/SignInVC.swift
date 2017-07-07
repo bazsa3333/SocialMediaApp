@@ -67,7 +67,9 @@ class SignInVC: UIViewController {
                 
                 if let user = user {
                     
-                    self.completeSignIn(id: user.uid)
+                    //azért raktunk ide credential.provider-t mert igy meg tudjuk különböztetni a facebook bejelentkezéseket. Amugy ha user.providerID-t rakunk akkor csak "Firebase" az eredmény
+                    let userData = ["provider": credential.provider]
+                    self.completeSignIn(id: user.uid, userData: userData)
                 }
             
             }
@@ -84,7 +86,8 @@ class SignInVC: UIViewController {
                     
                     if let user = user {
                      
-                        self.completeSignIn(id: user.uid)
+                        let userData = ["provider": user.providerID]
+                        self.completeSignIn(id: user.uid, userData: userData)
                     }
                 } else {
                     FIRAuth.auth()?.createUser(withEmail: email, password: psw, completion: { (user, error) in
@@ -95,7 +98,8 @@ class SignInVC: UIViewController {
                             
                             if let user = user {
                                 
-                             self.completeSignIn(id: user.uid)
+                             let userData = ["provider": user.providerID]
+                             self.completeSignIn(id: user.uid, userData: userData)
                             }
                         }
                     })
@@ -104,12 +108,13 @@ class SignInVC: UIViewController {
         }
     }
     
-    func completeSignIn(id: String) {
+    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+
+        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
-        
         print("BALINT: Data saved to keychainresult: \(keychainResult)")
-        
+    
         performSegue(withIdentifier: "goToFeed", sender: nil)
     }
 }

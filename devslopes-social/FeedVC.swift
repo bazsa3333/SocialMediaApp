@@ -38,6 +38,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func signOutTapped(_ sender: Any) {
         
+        //Tap gesture recognizer-t kell rárakni a sign-out kepre és enable-re kell állítani a user interaction-t mert különben nem csinál semmit a tapi-ra
+        
         //let removeSuccessful: Bool = KeychainWrapper.standard.remove(key: "myKey")
         
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)

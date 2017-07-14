@@ -15,10 +15,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageAdd: CircleView!
+    @IBOutlet weak var captionField: FancyField!
     
     var posts = [Post]()
     var imagePicker: UIImagePickerController!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
+    var imageSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +88,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageAdd.image = image
+            imageSelected = true
         } else {
             print("BALINT: Valid image wasn't selected")
         }
@@ -97,6 +100,38 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func postBtnTapped(_ sender: Any) {
+        
+        //ha a guard statement utáni dolog nem igaz akkor megy az else ágba
+        guard let caption = captionField.text, caption != "" else {
+            print("BALINT: Caption must be entered")
+            return
+        }
+        
+        guard let img = imageAdd.image, imageSelected == true else {
+            print("BALINT: Image must be selected")
+            return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+            
+            //unique identifier
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metadata, completion: { (metadata, error) in
+                
+                if error != nil {
+                    print("BALINT: Unabled to upload image to Firebase storage")
+                } else {
+                    
+                    print("BALINT: Succesfully uploaded image to Firebase storage")
+                    let downloadUrl = metadata?.downloadURL()?.absoluteString
+                }
+            })
+        }
+    }
     
     @IBAction func signOutTapped(_ sender: Any) {
         

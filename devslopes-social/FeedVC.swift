@@ -34,7 +34,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         //ez le is szedi az adatokat amiket a firebase-be manuálisan bevittünk 
         DataService.ds.REF_POST.observe(.value, with: { (snapshot) in
-            
+           
             //print(snapshot.value)
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 
@@ -128,9 +128,33 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     
                     print("BALINT: Succesfully uploaded image to Firebase storage")
                     let downloadUrl = metadata?.downloadURL()?.absoluteString
+                    
+                    //self -> closure
+                    if let url = downloadUrl {
+                        self.postToFirebase(imageUrl: url)
+                    }
                 }
             })
         }
+    }
+    
+    func postToFirebase(imageUrl: String) {
+        
+        let post: Dictionary<String, AnyObject> = [
+            "caption" : captionField.text as AnyObject,
+            "imageUrl" : imageUrl as AnyObject,
+            "likes" : 0 as AnyObject
+        ]
+        
+        let firebasePost = DataService.ds.REF_POST.childByAutoId()
+        firebasePost.setValue(post)
+        
+        //mindent visszaállitok alaphelyzetre a posztolás után
+        captionField.text = ""
+        imageSelected = false
+        imageAdd.image = UIImage(named: "add-image")
+        
+        //tableView.reloadData()
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
@@ -148,3 +172,4 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
 
 }
+

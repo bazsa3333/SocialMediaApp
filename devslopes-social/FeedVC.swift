@@ -70,12 +70,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
                 
                 cell.configureCell(post: post, img: img)
-                return cell
             } else {
                 
                 cell.configureCell(post: post, img: nil)
-                return cell
             }
+            return cell
             
         }
         else {
@@ -169,7 +168,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         performSegue(withIdentifier: "goToSignIn", sender: nil)
     }
     
-    
+    //Extra feladatok: felhasználónevet állítani (mondjuk uj felhasználónál felugrik egy ablak
+    //profilkép beállítása hasonló módon
+    //posztokhoz beállítani hogy ki posztolta és használni az előzöleg kreált felhasználónevet és képet
+    //lehessen szerkeszteni és törölni de csak a saját posztot, mások posztját nem
+    //Kommentet implementálni
 
 }
 
